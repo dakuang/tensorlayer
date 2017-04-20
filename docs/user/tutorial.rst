@@ -1122,7 +1122,7 @@ The ``batch_size`` can be seen as the number of concurrent computations we are r
 As the following example shows, the first batch learns the sequence information by using items 0 to 9.
 The second batch learn the sequence information by using items 10 to 19.
 So it ignores the information from items 9 to 10 !\n
-If only if we set ``batch_size = 1```, it will consider all the information from items 0 to 20.
+Only if we set ``batch_size = 1``, it will consider all the information from items 0 to 20.
 
 The meaning of ``batch_size`` here is not the same as the ``batch_size`` in the MNIST example. In the MNIST example,
 ``batch_size`` reflects how many examples we consider in each iteration, while in the
