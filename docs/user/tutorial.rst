@@ -5,14 +5,14 @@ Tutorial
 ========
 
 For deep learning, this tutorial will walk you through building handwritten
-digits classifiers using the MNIST dataset, arguably the "Hello World" of neural
+digit classifiers using the MNIST dataset, arguably the "Hello World" of neural
 networks. For reinforcement learning, we will let computer learns to play Pong
-game from the original screen inputs. For nature language processing, we start
+game from the original screen inputs. For natural language processing, we start
 from word embedding, and then describe language modeling and machine
 translation.
 
-This tutorial includes all modularized implementation of Google TensorFlow Deep
-Learning tutorial, so you could read TensorFlow Deep Learning tutorial as the same time
+This tutorial includes all the modularized implementation of Google TensorFlow Deep
+Learning tutorial, so you could read TensorFlow Deep Learning tutorial at the same time
 `[en] <https://www.tensorflow.org/versions/master/tutorials/index.html>`_ `[cn] <http://wiki.jikexueyuan.com/project/tensorflow-zh/>`_ .
 
 .. note::
@@ -26,7 +26,7 @@ Before we start
 
 The tutorial assumes that you are somewhat familiar with neural networks and
 TensorFlow (the library which `TensorLayer`_ is built on top of). You can try to learn
-the basic of neural network from the `Deeplearning Tutorial`_.
+the basics of neural network from the `Deep Learning Tutorial`_.
 
 For a more slow-paced introduction to artificial neural networks, we recommend
 `Convolutional Neural Networks for Visual Recognition`_ by Andrej Karpathy et
@@ -34,15 +34,15 @@ al., `Neural Networks and Deep Learning`_ by Michael Nielsen.
 
 To learn more about TensorFlow, have a look at the `TensorFlow tutorial`_. You will not
 need all of it, but a basic understanding of how TensorFlow works is required to be
-able to use `TensorLayer`_. If you're new to TensorFlow, going through that tutorial.
+able to use `TensorLayer`_. If you're new to TensorFlow, go through that tutorial.
 
 
 TensorLayer is simple
 =======================
 
 The following code shows a simple example of TensorLayer, see ``tutorial_mnist_simple.py`` .
-We provide a lot of simple functions （like ``fit()`` , ``test()`` ), however,
-if you want to understand the details and be a machine learning expert, we suggest you to train the network by using
+We provide a lot of simple functions (like ``fit()`` , ``test()`` ); however,
+if you want to understand the details and be a machine learning expert, we suggest you train the network by using
 TensorFlow's methods like ``sess.run()``, see ``tutorial_mnist.py`` for more details.
 
 
@@ -118,9 +118,9 @@ Run the MNIST example
   :align: center
 
 In the first part of the tutorial, we will just run the MNIST example that's
-included in the source distribution of `TensorLayer`_. MNIST dataset contains 60000
-handwritten digits that is commonly used for training various
-image processing systems, each of digit has 28x28 pixels.
+included in the source distribution of `TensorLayer`_. MNIST dataset contains 60,000
+handwritten digits that are commonly used for training various
+image processing systems, where each digit has 28x28 pixels.
 
 We assume that you have already run through the :ref:`installation`. If you
 haven't done so already, get a copy of the source tree of TensorLayer, and navigate
@@ -199,7 +199,7 @@ If everything is set up correctly, you will get an output like the following:
 
 The example script allows you to try different models, including Multi-Layer Perceptron,
 Dropout, Dropconnect, Stacked Denoising Autoencoder and Convolutional Neural Network.
-Select different models from ``if __name__ == '__main__':``.
+Select different models under ``if __name__ == '__main__':``.
 
 .. code-block:: python
 
@@ -233,9 +233,9 @@ and tensorflow:
   import time
 
 
-As we know, TensorLayer is built on top of TensorFlow, it is meant as a supplement helping
+As we know, TensorLayer is built on top of TensorFlow, and it is meant as a supplement helping
 with some tasks, not as a replacement. You will always mix TensorLayer with some
-vanilla TensorFlow code. The ``set_keep`` is used to access the placeholder of keeping probabilities
+raw TensorFlow code. The ``set_keep`` is used to access the placeholder of keeping probabilities
 when using Denoising Autoencoder.
 
 
@@ -254,11 +254,11 @@ for the purpose of this tutorial, we can regard it as:
 
 ``X_train.shape`` is ``(50000, 784)``, to be interpreted as: 50,000
 images and each image has 784 pixels. ``y_train.shape`` is simply ``(50000,)``, which is a vector the same
-length of ``X_train`` giving an integer class label for each image -- namely,
-the digit between 0 and 9 depicted in the image (according to the human
+length as ``X_train`` giving an integer class label for each image -- namely,
+a digit between 0 and 9 depicted in the image (according to the human
 annotator who drew that digit).
 
-For Convolutional Neural Network example, the MNIST can be load as 4D version as follow:
+For Convolutional Neural Network example, the MNIST can be load as 4D version as follows:
 
 .. code-block:: python
 
@@ -266,7 +266,7 @@ For Convolutional Neural Network example, the MNIST can be load as 4D version as
               tl.files.load_mnist_dataset(shape=(-1, 28, 28, 1))
 
 ``X_train.shape`` is ``(50000, 28, 28, 1)`` which represents 50,000 images with 1 channel, 28 rows and 28 columns each.
-Channel one is because it is a grey scale image, every pixel have only one value.
+The number of channels is 1 because it is a grayscale image, so every pixel has only one value.
 
 Building the model
 ------------------
@@ -281,10 +281,10 @@ As mentioned above, ``tutorial_mnist.py`` supports four types of models, and we
 implement that via easily exchangeable functions of the same interface.
 First, we'll define a function that creates a Multi-Layer Perceptron (MLP) of
 a fixed architecture, explaining all the steps in detail. We'll then implement
-a Denosing Autoencoder (DAE), after that we will then stack all Denoising Autoencoder and
-supervised fine-tune them. Finally, we'll show how to create a
+a Denosing Autoencoder (DAE). After that we will stack all Denoising Autoencoder and
+fine-tune them in a supervised way. Finally, we'll show how to create a
 Convolutional Neural Network (CNN). In addition, a simple example for MNIST
-dataset in ``tutorial_mnist_simple.py``, a CNN example for CIFAR-10 dataset in
+dataset is in ``tutorial_mnist_simple.py``, and a CNN example for CIFAR-10 dataset is in
 ``tutorial_cifar10_tfrecord.py``.
 
 
@@ -295,10 +295,10 @@ The first script, ``main_test_layers()``, creates an MLP of two hidden layers of
 800 units each, followed by a softmax output layer of 10 units. It applies 20%
 dropout to the input data and 50% dropout to the hidden layers.
 
-To feed data into the network, TensofFlow placeholders need to be defined as follow.
-The ``None`` here means the network will accept input data of arbitrary batchsize after compilation.
+To feed data into the network, TensorFlow placeholders need to be defined as follows.
+The ``None`` here means the network will accept input data of arbitrary batch size when running.
 The ``x`` is used to hold the ``X_train`` data and ``y_`` is used to hold the ``y_train`` data.
-If you know the batchsize beforehand and do not need this flexibility, you should give the batchsize
+If you know the batch size beforehand and do not need this flexibility, you should give the batch size
 here -- especially for convolutional layers, this can allow TensorFlow to apply
 some optimizations.
 
@@ -309,7 +309,7 @@ some optimizations.
 
 The foundation of each neural network in TensorLayer is an
 :class:`InputLayer <tensorlayer.layers.InputLayer>` instance
-representing the input data that will subsequently be fed to the network. Note
+representing the input data that will subsequently be fed into the network. Note
 that the ``InputLayer`` is not tied to any specific data yet.
 
 .. code-block:: python
@@ -326,15 +326,14 @@ data. This is realized via a :class:`DropoutLayer
 
 Note that the first constructor argument is the incoming layer, the second
 argument is the keeping probability for the activation value. Now we'll proceed
-with the first fully-connected hidden layer of 800 units. Note
-that when stacking a :class:`DenseLayer <tensorlayer.layers.DenseLayer>`.
+with the first fully-connected hidden layer of 800 units.
 
 .. code-block:: python
 
     network = tl.layers.DenseLayer(network, n_units=800, act = tf.nn.relu, name='relu1')
 
-Again, the first constructor argument means that we're stacking ``network`` on
-top of ``network``.
+The first constructor argument means that we're stacking a
+:class:`DenseLayer <tensorlayer.layers.DenseLayer>` on top of ``network``.
 ``n_units`` simply gives the number of units for this fully-connected layer.
 ``act`` takes an activation function, several of which are defined
 in :mod:`tensorflow.nn` and `tensorlayer.activation`. Here we've chosen the rectifier, so
@@ -349,7 +348,7 @@ again:
 
 Finally, we'll add the fully-connected output layer which the ``n_units`` equals to
 the number of classes. Note that, the softmax is implemented internally in ``tf.nn.sparse_softmax_cross_entropy_with_logits()``
-to speed up computation, so we used identity in the last layer, more
+to speed up computation, so we use identity for ``act`` in the last layer. See more
 details in ``tl.cost.cross_entropy()``.
 
 
@@ -370,17 +369,17 @@ need the output layer(s) to access a network in TensorLayer:
     cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(y, y_))
 
 Here, ``network.outputs`` is the 10 identity outputs from the network (in one hot format), ``y_op`` is the integer
-output represents the class index. While ``cost`` is the cross-entropy between target and predicted labels.
+output represents the class index, and ``cost`` is the cross-entropy between targets and predicted labels.
 
 Denoising Autoencoder (DAE)
 --------------------------------------
 
-Autoencoder is a unsupervised learning models which able to extract representative features,
-it has become more widely used for learning generative models of data and Greedy layer-wise pre-train.
-For vanilla Autoencoder see `Deeplearning Tutorial`_.
+Autoencoder is an unsupervised learning model which is able to extract representative features, and
+it has become more widely used for learning generative models of data and Greedy layer-wise pre-training.
+For a vanilla Autoencoder see `Deep Learning Tutorial`_.
 
 The script ``main_test_denoise_AE()`` implements a Denoising Autoencoder with corrosion rate of 50%.
-The Autoencoder can be defined as follow, where an Autoencoder is represented by a ``DenseLayer``:
+The Autoencoder can be defined as follows, where an Autoencoder is represented by a ``DenseLayer``:
 
 .. code-block:: python
 
@@ -393,13 +392,13 @@ The Autoencoder can be defined as follow, where an Autoencoder is represented by
                                         act=tf.nn.sigmoid,
                                         name='recon_layer1')
 
-To train the ``DenseLayer``, simply run ``ReconLayer.pretrain()``, if using denoising Autoencoder, the name of
-corrosion layer (a ``DropoutLayer``) need to be specified as follow. To save the feature images, set ``save`` to ``True``.
-There are many kinds of pre-train metrices according to different architectures and applications. For sigmoid activation,
-the Autoencoder can be implemented by using KL divergence, while for rectifer, L1 regularization of activation outputs
-can make the output to be sparse. So the default behaviour of ``ReconLayer`` only provide KLD and cross-entropy for sigmoid
-activation function and L1 of activation outputs and mean-squared-error for rectifing activation function.
-We recommend you to modify ``ReconLayer`` to achieve your own pre-train metrice.
+To train the ``DenseLayer``, simply run ``ReconLayer.pretrain()``. If using denoising Autoencoder, the name of
+corrosion layer (a ``DropoutLayer``) need to be specified (see below). To save the feature images, set ``save`` to ``True``.
+There are many kinds of pre-train metrics according to different architectures and applications. For sigmoid activation,
+the Autoencoder can be implemented using KL divergence, while for rectifer, L1 regularization of activation outputs
+can make the output to be sparse. So the library implementation of ``ReconLayer`` only provides KLD and cross-entropy
+for sigmoid activation function, as well as L1 of activation outputs and mean-squared-error for rectifing activation
+function. We recommend modifying ``ReconLayer`` to achieve your own pre-train metric.
 
 .. code-block:: python
 
@@ -414,25 +413,25 @@ We recommend you to modify ``ReconLayer`` to achieve your own pre-train metrice.
                           save=True,
                           save_name='w1pre_')
 
-In addition, the script ``main_test_stacked_denoise_AE()`` shows how to stacked multiple Autoencoder to one network and then
-fine-tune.
+In addition, the script ``main_test_stacked_denoise_AE()`` shows how to stack multiple Autoencoder in one network and then
+fine-tune it.
 
 
 Convolutional Neural Network (CNN)
 --------------------------------------
 
 Finally, the ``main_test_cnn_layer()`` script creates two CNN layers and
-max pooling stages, a fully-connected hidden layer and a fully-connected output
-layer. More CNN examples can be found in the tutorial scripts, like ``tutorial_cifar10_tfrecord.py``.
+max pooling stages, a fully-connected hidden layer, and a fully-connected output
+layer. More CNN examples can be found in the tutorial scripts such as ``tutorial_cifar10_tfrecord.py``.
 
-At the begin, we add a :class:`Conv2dLayer
-<tensorlayer.layers.Conv2dLayer>` with 32 filters of size 5x5 on top, follow by
-max-pooling of factor 2 in both dimensions. And then apply a ``Conv2dLayer`` with
-64 filters of size 5x5 again and follow by a max_pool again. After that, flatten
-the 4D output to 1D vector by using ``FlattenLayer``, and apply a dropout with 50%
-to last hidden layer. The ``?`` represents arbitrary batch_size.
+At the beginning, we add a :class:`Conv2dLayer
+<tensorlayer.layers.Conv2dLayer>` with 32 filters of size 5x5 on top, followed by
+max-pooling of stride 2 in both dimensions. And then we apply a ``Conv2dLayer`` with
+64 filters of size 5x5 again and follow by a max pooling again. After that, we flatten
+the 4D output to a 1D vector by using ``FlattenLayer``, and apply a dropout with 50%
+to the final fully-connected layer. The ``?`` represents arbitrary batch size.
 
-Note, ``tutorial_mnist.py`` introduces the simplified CNN API for beginner.
+Note: ``tutorial_mnist.py`` introduces the simplified CNN API for beginners.
 
 .. code-block:: python
 
@@ -489,10 +488,9 @@ a training loop over the MNIST dataset by using cross-entropy only.
 
 Dataset iteration
 ^^^^^^^^^^^^^^^^^
-
-An iteration function for synchronously iterating over two
-numpy arrays of input data and targets, respectively, in mini-batches of a
-given number of items. More iteration function can be found in ``tensorlayer.iterate``
+The iteration function ``minibatches`` is used for synchronously iterating over two
+numpy arrays of input data and targets, respectively, in fixed size mini-batches.
+More iteration function can be found in ``tensorlayer.iterate``
 
 .. code-block:: python
 
@@ -502,7 +500,7 @@ given number of items. More iteration function can be found in ``tensorlayer.ite
 Loss and update expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Continuing, we create a loss expression to be minimized in training:
+Next, we create a loss expression to be minimized in training:
 
 .. code-block:: python
 
@@ -511,7 +509,7 @@ Continuing, we create a loss expression to be minimized in training:
     cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(y, y_))
 
 
-More cost or regularization can be applied here, take ``main_test_layers()`` for example,
+More kinds of costs or regularization can be applied here. Take ``main_test_layers()`` for example,
 to apply max-norm on the weight matrices, we can add the following line:
 
 .. code-block:: python
@@ -523,7 +521,7 @@ Depending on the problem you are solving, you will need different loss functions
 see :mod:`tensorlayer.cost` for more.
 
 Having the model and the loss function defined, we create update expressions
-for training the network. TensorLayer do not provide many optimizer, we used TensorFlow's
+for training the network. TensorLayer do not provide any optimizer, but we use TensorFlow's
 optimizer instead:
 
 .. code-block:: python
@@ -533,7 +531,7 @@ optimizer instead:
         epsilon=1e-08, use_locking=False).minimize(cost, var_list=train_params)
 
 
-For training the network, we fed data and the keeping probabilities to the ``feed_dict``.
+For training the network, we feed our data and the keeping probabilities to ``feed_dict``.
 
 .. code-block:: python
 
@@ -541,9 +539,9 @@ For training the network, we fed data and the keeping probabilities to the ``fee
     feed_dict.update( network.all_drop )
     sess.run(train_op, feed_dict=feed_dict)
 
-While, for validation and testing, we use slightly different way. All
-dropout, dropconnect, corrosion layers need to be disable.
-``tl.utils.dict_to_one`` set all ``network.all_drop`` to 1.
+But for validation and testing we use a slightly different way. All
+dropout, dropconnect, corrosion layers need to be disabled.
+``tl.utils.dict_to_one`` sets ``network.all_drop`` to 1.
 
 .. code-block:: python
 
@@ -565,7 +563,7 @@ What Next?
 ^^^^^^^^^^^
 
 We also have a more advanced image classification example in ``tutorial_cifar10_tfrecord.py``.
-Please read the code and notes, figure out how to generate more training data and what
+Please read the code and notes, and figure out how to generate more training data and what
 is local response normalization. After that, try to implement
 `Residual Network <http://doi.org/10.3389/fpsyg.2013.00124>`_ (Hint: you may want
 to use the Layer.outputs).
@@ -1067,7 +1065,7 @@ the model provides a sequence of softmax outputs.
 The first LSTM layer outputs ``[batch_size, num_steps, hidden_size]`` for stacking
 another LSTM after it. The second LSTM layer outputs ``[batch_size*num_steps, hidden_size]``
 for stacking a DenseLayer after it. Then the DenseLayer computes the softmax outputs of each example
-（``n_examples = batch_size*num_steps``).
+(``n_examples = batch_size*num_steps``).
 
 To understand the PTB tutorial, you can also read `TensorFlow PTB tutorial
 <https://www.tensorflow.org/versions/r0.9/tutorials/recurrent/index.html#recurrent-neural-networks>`_.
@@ -2008,7 +2006,7 @@ preprocessing functions (:mod:`tensorlayer.prepro`),
 
 
 .. _TensorLayer: https://github.com/zsdonghao/tensorlayer/
-.. _Deeplearning Tutorial: http://deeplearning.stanford.edu/tutorial/
+.. _Deep Learning Tutorial: http://deeplearning.stanford.edu/tutorial/
 .. _Convolutional Neural Networks for Visual Recognition: http://cs231n.github.io/
 .. _Neural Networks and Deep Learning: http://neuralnetworksanddeeplearning.com/
 .. _TensorFlow tutorial: https://www.tensorflow.org/versions/master/tutorials/index.html
